@@ -8,7 +8,7 @@
         $("#job-alert").hide()
         $("#phone-alert").hide()
         $(".EditContact").hide().removeClass("d-none")
-        $(".DeleteContact").hide().removeClass("d-none")dd
+        $(".DeleteContact").hide().removeClass("d-none")
     }
     
     $("#AddContact").click(() => {
