@@ -85,7 +85,7 @@ public class HomeController : Controller
         }
         _context.Contacts.Remove(contact);
         await _context.SaveChangesAsync();
-        return await GetPageCount() <= page;
+        return page != 0 && await GetPageCount() <= page;
     }
 
     private async Task<double> GetPageCount()
