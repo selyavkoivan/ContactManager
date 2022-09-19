@@ -1,0 +1,133 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@using ContactManager.Models.Entities
+@using ContactManager.Models.Values
+
+@model dynamic
+
+<div class="jumbotron jumbotron-fluid mb-5">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Job title</th>
+            <th scope="col">Mobile Phone</th>
+            <th scope="col">Birthday</th>
+            <th scope="col" class="d-flex">
+                <input type="hidden" id="page" value="@Model.Page"/>
+                @if (Model.Page == 0)
+                {
+                    <button class="btn btn-danger" disabled id="prev">&lt;</button>
+                }
+                else
+                {
+                    <button class="btn btn-danger" id="prev">&lt;</button>
+                }
+                <h3>@(Model.Page * PageValues.CountOnPage + 1) - @((Model.Page + 1) * PageValues.CountOnPage)</h3>
+                @if (Model.isLast)
+                {
+                    <button class="btn btn-success" disabled id="next">></button>
+                }
+                else
+                {
+                    <button class="btn btn-success" id="next">></button>
+                }
+                
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Contact contact in Model.Contacts)
+        {
+            <tr>
+                <td>@contact.Name</td>
+                <td>@contact.Position.JobTitle</td>
+                <td>@contact.Phone</td>
+                <td>@contact.Birthday.ToLongDateString()</td>
+                <td>
+                    <button id="@contact.ContactId" class="btn btn-success EditContact" data-bs-toggle="modal" data-bs-target="#modal">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </button>
+                    <button id="@contact.ContactId" class="btn btn-danger DeleteContact">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td aria-colspan="5">
+                <button id="AddContact" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">
+                    <i class="fa-solid fa-plus"></i> Add contact
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="contact-name" class="col-form-label">Name:</label>
+                        <input type="text" class="form-control" id="contact-name">
+                        <div id="name-alert" class="alert alert-danger alert-dismissible fade show">
+                            <strong>name can only consist of letters, - and space</strong>
+                            <button type="button" class="btn-close"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job-title" class="col-form-label">Job Title:</label>
+                        <input type="text" class="form-control" id="job-title" list="jobDatalist">
+                        <datalist id="jobDatalist">
+                            @foreach (Job job in Model.Jobs)
+                            {
+                                <option value="@job.JobTitle"/>
+                            }
+                        </datalist>
+                        <div id="job-alert" class="alert alert-danger alert-dismissible fade show">
+                            <strong>job title can only consist of digits, letters, - and space</strong>
+                            <button type="button" class="btn-close"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="col-form-label">Mobile Phone:</label>
+                        <input type="text" class="form-control" id="phone">
+                        <div id="phone-alert" class="alert alert-danger alert-dismissible fade show">
+                            <strong>phone number can only consist of digits, +, - and ()</strong>
+                            <button type="button" class="btn-close"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="birthday" class="col-form-label">Birthday:</label>
+                        <input type="date" class="form-control" id="birthday">
+                        <div id="birthday-alert" class="alert alert-danger alert-dismissible fade show">
+                            <strong>it's too late, that date hasn't arrived yet</strong>
+                            <button type="button" class="btn-close"
+                                    aria-label="Close">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="ContactId"/>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="Add" class="btn btn-primary">Add</button>
+                    <button type="button" id="Update" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

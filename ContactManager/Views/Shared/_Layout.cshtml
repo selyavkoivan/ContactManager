@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - ContactManager</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/ContactManager.styles.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+<div class="navbar navbar-inverse bg-dark text-light">
+    <div class="container">
+        <div class="navbar-header">
+            <p class="navbar-brand m-0">Contacts manager</p>
+        </div>
+    </div>
+</div>
+<div class="container body-content bg-light">
+    <main>
+        @RenderBody()
+    </main>
+    <footer class="fixed-bottom navbar justify-content-center text-center bg-white">
+        <p>&copy; @DateTime.Now.2022 - <a href="https://github.com/selyavkoivan">My github</a></p>
+    </footer>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/values.js" asp-append-version="true"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
