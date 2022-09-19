@@ -7,6 +7,8 @@
         $("#name-alert").hide()
         $("#job-alert").hide()
         $("#phone-alert").hide()
+        $(".EditContact").hide()
+        $(".DeleteContact").hide()
     }
     
     $("#AddContact").click(() => {
@@ -153,5 +155,11 @@
     function GetNextPageUrl() {
         return "?page=" + (+$("#page").val() + 1)
     }
+    
+    $("[name='contactRadio']").click(e => {
+        let id = $(e.target).attr("id")
+        $(".EditContact").attr("id", id).show()
+        $(".DeleteContact").attr("id", id).show()
+    })
 
 })

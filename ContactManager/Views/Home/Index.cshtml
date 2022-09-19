@@ -11,57 +11,63 @@
     <table class="table">
         <thead class="thead-dark">
         <tr>
+            <th scope="col"></th>
             <th scope="col">Name</th>
             <th scope="col">Job title</th>
             <th scope="col">Mobile Phone</th>
             <th scope="col">Birthday</th>
-            <th scope="col" class="d-flex">
-                <input type="hidden" id="page" value="@Model.Page"/>
-                @if (Model.Page == 0)
-                {
-                    <button class="btn btn-danger" disabled id="prev">&lt;</button>
-                }
-                else
-                {
-                    <button class="btn btn-danger" id="prev">&lt;</button>
-                }
-                <h3>@(Model.Page * PageValues.CountOnPage + 1) - @((Model.Page + 1) * PageValues.CountOnPage)</h3>
-                @if (Model.isLast)
-                {
-                    <button class="btn btn-success" disabled id="next">></button>
-                }
-                else
-                {
-                    <button class="btn btn-success" id="next">></button>
-                }
-                
-            </th>
         </tr>
         </thead>
         <tbody>
         @foreach (Contact contact in Model.Contacts)
         {
             <tr>
+                <td>
+                    <div>
+                        <input class="form-check-input" type="radio" name="contactRadio" id="@contact.ContactId"/>
+                    </div>
+                </td>
                 <td>@contact.Name</td>
                 <td>@contact.Position.JobTitle</td>
                 <td>@contact.Phone</td>
                 <td>@contact.Birthday.ToLongDateString()</td>
-                <td>
-                    <button id="@contact.ContactId" class="btn btn-success EditContact" data-bs-toggle="modal" data-bs-target="#modal">
-                        <i class="fa-solid fa-user-pen"></i>
-                    </button>
-                    <button id="@contact.ContactId" class="btn btn-danger DeleteContact">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                </td>
             </tr>
         }
         <tr>
-            <td aria-colspan="5">
+            <td colspan="4">
                 <button id="AddContact" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal">
                     <i class="fa-solid fa-plus"></i> Add contact
                 </button>
+                <button class="btn btn-success EditContact" data-bs-toggle="modal" data-bs-target="#modal">
+                    <i class="fa-solid fa-user-pen"></i>
+                </button>
+                <button class="btn btn-danger DeleteContact">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
             </td>
+            <td>
+                <input type="hidden" id="page" value="@Model.Page"/>
+                <div class="d-flex">
+                    @if (Model.Page == 0)
+                    {
+                        <button class="btn btn-danger" disabled id="prev">&lt;</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-danger" id="prev">&lt;</button>
+                    }
+                    <h3>@(Model.Page * PageValues.CountOnPage + 1) - @((Model.Page + 1) * PageValues.CountOnPage)</h3>
+                    @if (Model.isLast)
+                    {
+                        <button class="btn btn-success" disabled id="next">></button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-success" id="next">></button>
+                    }
+                </div>
+            </td>
+
         </tr>
         </tbody>
     </table>
