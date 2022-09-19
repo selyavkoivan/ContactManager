@@ -1,17 +1,22 @@
 ﻿$(document).ready(() => {
 
     HideAlert()
+    HideButton()
     
     function HideAlert() {
         $("#birthday-alert").hide()
         $("#name-alert").hide()
         $("#job-alert").hide()
         $("#phone-alert").hide()
+    }
+    
+    function HideButton() {
         $(".EditContact").hide().removeClass("d-none")
         $(".DeleteContact").hide().removeClass("d-none")
     }
     
     $("#AddContact").click(() => {
+        HideAlert()
         $("#modalLabel").text("Add Contact")
         CleanForm()
         $("#Add").show()
@@ -19,6 +24,7 @@
     })
     
     $(".EditContact").click(e => {
+        HideAlert()
         let id = $(e.target).closest("button").attr("id")
         $("#ContactId").val(id)
         $("#modalLabel").text("Edit Contact")
